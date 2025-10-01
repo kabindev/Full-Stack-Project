@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Productivity Hub</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-purple: #7c3aed;
+      --primary-green: #10b981;
+      --bg-gradient-start: #667eea;
+      --bg-gradient-end: #764ba2;
+    }
+    
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+    }
+    
+    .auth-container {
+      background: white;
+      border-radius: 1.5rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+    }
+    
+    .auth-left {
+      flex: 1;
+      padding: 3rem;
+      background: linear-gradient(135deg, var(--primary-purple) 0%, #6d28d9 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .auth-left h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .auth-left p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+    
+    .feature-list {
+      text-align: left;
+      margin-top: 2rem;
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    
+    .feature-item i {
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      color: var(--primary-green);
+    }
+    
+    .auth-right {
+      flex: 1;
+      padding: 3rem;
+    }
+    
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .auth-header h2 {
+      color: var(--primary-purple);
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .auth-header p {
+      color: #6b7280;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-label {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    
+    .form-control-custom {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    
+    .form-control-custom:focus {
+      outline: none;
+      border-color: var(--primary-purple);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    }
+    
+    .btn-primary-custom {
+      width: 100%;
+      padding: 0.875rem;
+      background: var(--primary-purple);
+      color: white;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary-custom:hover {
+      background: #6d28d9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+    }
+    
+    .btn-primary-custom:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .toggle-form {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #6b7280;
+    }
+    
+    .toggle-form a {
+      color: var(--primary-purple);
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    .toggle-form a:hover {
+      text-decoration: underline;
+    }
+    
+    .alert-custom {
+      padding: 0.875rem 1rem;
+      border-radius: 0.75rem;
+      margin-bottom: 1.5rem;
+      display: none;
+    }
+    
+    .alert-error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+    
+    .alert-success {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+    
+    .password-toggle {
+      position: relative;
+    }
+    
+    .password-toggle-icon {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #6b7280;
+    }
+    
+    @media (max-width: 768px) {
+      .auth-container {
+        flex-direction: column;
+      }
+      
+      .auth-left {
+        padding: 2rem;
+      }
+      
+      .auth-left h1 {
+        font-size: 2rem;
+      }
+      
+      .feature-list {
+        display: none;
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .auth-container {
+      animation: fadeIn 0.5s ease-out;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="auth-container">
+    <!-- Left Side -->
+    <div class="auth-left">
+      <div>
+        <h1>🎯 Productivity Hub</h1>
+        <p>Your personal productivity companion to track tasks, build habits, and achieve your goals!</p>
+        
+        <div class="feature-list">
+          <div class="feature-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Track tasks efficiently</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-fire"></i>
+            <span>Build lasting habits</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Monitor your progress</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-trophy"></i>
+            <span>Celebrate achievements</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Right Side - Forms -->
+    <div class="auth-right">
+      <!-- Login Form -->
+      <div id="loginForm">
+        <div class="auth-header">
+          <h2>Welcome Back!</h2>
+          <p>Login to continue your productivity journey</p>
+        </div>
+        
+        <div id="loginAlert" class="alert-custom alert-error"></div>
+        
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input type="text" id="loginUsername" class="form-control-custom" placeholder="Enter your username" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="password-toggle">
+              <input type="password" id="loginPassword" class="form-control-custom" placeholder="Enter your password" required>
+              <i class="fas fa-eye password-toggle-icon" onclick="togglePassword('loginPassword', this)"></i>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn-primary-custom" id="loginBtn">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+        </form>
+        
+        <div class="toggle-form">
+          Don't have an account? <a onclick="showRegisterForm()">Register here</a>
+        </div>
+      </div>
+      
+      <!-- Register Form -->
+      <div id="registerForm" style="display: none;">
+        <div class="auth-header">
+          <h2>Create Account</h2>
+          <p>Start your productivity journey today</p>
+        </div>
+        
+        <div id="registerAlert" class="alert-custom alert-error"></div>
+        
+        <form onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input type="text" id="registerUsername" class="form-control-custom" placeholder="Choose a username" required minlength="3">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" id="registerEmail" class="form-control-custom" placeholder="Enter your email" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="password-toggle">
+              <input type="password" id="registerPassword" class="form-control-custom" placeholder="Choose a password (min 6 characters)" required minlength="6">
+              <i class="fas fa-eye password-toggle-icon" onclick="togglePassword('registerPassword', this)"></i>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Confirm Password</label>
+            <div class="password-toggle">
+              <input type="password" id="registerConfirmPassword" class="form-control-custom" placeholder="Confirm your password" required>
+              <i class="fas fa-eye password-toggle-icon" onclick="togglePassword('registerConfirmPassword', this)"></i>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn-primary-custom" id="registerBtn">
+            <i class="fas fa-user-plus"></i> Register
+          </button>
+        </form>
+        
+        <div class="toggle-form">
+          Already have an account? <a onclick="showLoginForm()">Login here</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <script>
+    function showRegisterForm() {
+      $('#loginForm').hide();
+      $('#registerForm').show();
+      $('#loginAlert').hide();
+      $('#registerAlert').hide();
+    }
+    
+    function showLoginForm() {
+      $('#registerForm').hide();
+      $('#loginForm').show();
+      $('#loginAlert').hide();
+      $('#registerAlert').hide();
+    }
+    
+    function togglePassword(inputId, icon) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+    
+    function showAlert(alertId, message, isError = true) {
+      const alert = $(`#${alertId}`);
+      alert.text(message);
+      alert.removeClass('alert-error alert-success');
+      alert.addClass(isError ? 'alert-error' : 'alert-success');
+      alert.show();
+      
+      setTimeout(() => alert.hide(), 5000);
+    }
+    
+    function handleLogin(event) {
+      event.preventDefault();
+      
+      const username = $('#loginUsername').val().trim();
+      const password = $('#loginPassword').val();
+      
+      if (!username || !password) {
+        showAlert('loginAlert', 'Please fill in all fields');
+        return;
+      }
+      
+      $('#loginBtn').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Logging in...');
+      
+      $.ajax({
+        url: '/api/login',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ username, password }),
+        success: function(response) {
+          showAlert('loginAlert', 'Login successful! Redirecting...', false);
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 1000);
+        },
+        error: function(xhr) {
+          const error = xhr.responseJSON?.error || 'Login failed. Please try again.';
+          showAlert('loginAlert', error);
+          $('#loginBtn').prop('disabled', false).html('<i class="fas fa-sign-in-alt"></i> Login');
+        }
+      });
+    }
+    
+    function handleRegister(event) {
+      event.preventDefault();
+      
+      const username = $('#registerUsername').val().trim();
+      const email = $('#registerEmail').val().trim();
+      const password = $('#registerPassword').val();
+      const confirmPassword = $('#registerConfirmPassword').val();
+      
+      if (!username || !email || !password || !confirmPassword) {
+        showAlert('registerAlert', 'Please fill in all fields');
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        showAlert('registerAlert', 'Passwords do not match');
+        return;
+      }
+      
+      if (password.length < 6) {
+        showAlert('registerAlert', 'Password must be at least 6 characters');
+        return;
+      }
+      
+      $('#registerBtn').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Creating account...');
+      
+      $.ajax({
+        url: '/api/register',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ username, email, password }),
+        success: function(response) {
+          showAlert('registerAlert', 'Registration successful! Redirecting...', false);
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 1000);
+        },
+        error: function(xhr) {
+          const error = xhr.responseJSON?.error || 'Registration failed. Please try again.';
+          showAlert('registerAlert', error);
+          $('#registerBtn').prop('disabled', false).html('<i class="fas fa-user-plus"></i> Register');
+        }
+      });
+    }
+    
+    // Allow Enter key to submit forms
+    $('#loginPassword').keypress(function(e) {
+      if (e.which === 13) {
+        handleLogin(e);
+      }
+    });
+    
+    $('#registerConfirmPassword').keypress(function(e) {
+      if (e.which === 13) {
+        handleRegister(e);
+      }
+    });
+  </script>
+</body>
+</html>
